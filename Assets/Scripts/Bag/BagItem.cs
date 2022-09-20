@@ -1,18 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class BagItem : MonoBehaviour
+public class BagItem : BasePanel
 {
-    // Start is called before the first frame update
-    void Start()
+    public void InitItemInfo(Item item)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        GetControl<Text>("index").text = item.num.ToString();
     }
 }

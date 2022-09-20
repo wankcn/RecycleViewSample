@@ -10,6 +10,7 @@ public class PoolData
 {
     //抽屉中 对象挂载的父节点
     public GameObject fatherObj;
+
     //对象的容器
     public List<GameObject> poolList;
 
@@ -18,7 +19,7 @@ public class PoolData
         //给我们的抽屉 创建一个父对象 并且把他作为我们pool(衣柜)对象的子物体
         fatherObj = new GameObject(obj.name);
         fatherObj.transform.parent = poolObj.transform;
-        poolList = new List<GameObject>() {};
+        poolList = new List<GameObject>() { };
         PushObj(obj);
     }
 
@@ -33,7 +34,7 @@ public class PoolData
         //存起来
         poolList.Add(obj);
         //设置父对象
-        obj.transform.parent = fatherObj.transform;
+        obj.transform.SetParent(fatherObj.transform, false);
     }
 
     /// <summary>
@@ -49,7 +50,7 @@ public class PoolData
         //激活 让其显示
         obj.SetActive(true);
         //断开了父子关系
-        obj.transform.parent = null;
+        obj.transform.SetParent(null);
 
         return obj;
     }
