@@ -18,7 +18,7 @@ public class PoolData
     {
         //给我们的抽屉 创建一个父对象 并且把他作为我们pool(衣柜)对象的子物体
         fatherObj = new GameObject(obj.name);
-        fatherObj.transform.parent = poolObj.transform;
+        fatherObj.transform.SetParent(poolObj.transform);
         poolList = new List<GameObject>() { };
         PushObj(obj);
     }
