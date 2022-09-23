@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cce4a780-ff5b-4df8-aacb-976c1f35af86" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Main.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Main.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Unlimited_Sliding_List/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unlimited_Sliding_List/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/UI/BagPanel.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/UI/BagPanel.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Bag/BagItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Bag/BagItem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Bag/BagMgr.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Bag/BagMgr.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Bag/BagPanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Bag/BagPanel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ProjectBase/Pool/PoolMgr.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ProjectBase/Pool/PoolMgr.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -85,7 +77,7 @@
       <option name="presentableId" value="Default" />
       <updated>1663693685875</updated>
       <workItem from="1663693714432" duration="86000" />
-      <workItem from="1663696832902" duration="5643000" />
+      <workItem from="1663696832902" duration="5901000" />
     </task>
     <servers />
   </component>
