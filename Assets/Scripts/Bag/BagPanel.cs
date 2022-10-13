@@ -1,9 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class BagPanel : MonoBehaviour
+public class BagPanel : BasePanel
 {
     public RectTransform content;
     private CustomSV<Item, BagItem> sv;
