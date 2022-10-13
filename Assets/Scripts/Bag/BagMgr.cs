@@ -16,10 +16,11 @@ public class Item
 
 public class BagMgr : BaseManager<BagMgr>
 {
-    public List<Item> items = new List<Item>();
+    public List<Item> items;
 
     public void InitData()
     {
+        items = new List<Item>();
         for (int i = 0; i < 10000; i++)
             items.Add(new Item(i, i));
     }
