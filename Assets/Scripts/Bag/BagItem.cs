@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BagItem : BasePanel, IItemBase<Item>
+public class BagItem : MonoBehaviour, IItemBase<Item>
 {
+    public Text index;
     public void InitItemInfo(Item item)
     {
-        GetControl<Text>("index").text = item.num.ToString();
+        index.text = item.num.ToString();
     }
 }

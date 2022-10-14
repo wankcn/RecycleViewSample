@@ -23,11 +23,7 @@ public class BagPanel : BasePanel
     private void Update()
     {
         if (content)
-        {
-            sv.InitItemSizeAndCol(itemSize, interSpace, showLine);
             sv.CheckShowOrHide();
-        }
 
-       
     }
 }
