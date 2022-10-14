@@ -503,6 +503,7 @@ MonoBehaviour:
   interSpace: {x: 10, y: 20}
   showLine: 4
   showViewH: 925
+  boxResPath: UI/BagItem
 --- !u!1 &5033144022566447725
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,23 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-/// <summary>
-/// 资源加载模块
-/// 1.异步加载
-/// 2.委托和 lambda表达式
-/// 3.协程
-/// 4.泛型
-/// </summary>
+
 public class ResMgr : BaseManager<ResMgr>
 {
     //同步加载资源
     public T Load<T>(string name) where T:Object
     {
         T res = Resources.Load<T>(name);
-        //如果对象是一个GameObject类型的 我把他实例化后 再返回出去 外部 直接使用即可
         if (res is GameObject)
             return GameObject.Instantiate(res);
-        else//TextAsset AudioClip
+        else
             return res;
     }
 

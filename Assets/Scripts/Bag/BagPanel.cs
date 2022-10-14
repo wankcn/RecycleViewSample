@@ -9,12 +9,13 @@ public class BagPanel : BasePanel
     public int showLine;
     public int showViewH;
     private CustomSV<Item, BagItem> sv;
+    public string boxResPath;
 
     private void Start()
     {
         if (content == null) return;
         sv = new CustomSV<Item, BagItem>();
-        sv.InitItemResName("UI/BagItem");
+        sv.InitItemResName(boxResPath);
         sv.InitItemSizeAndCol(itemSize, interSpace, showLine);
         sv.InitContentSVH(content, showViewH);
         sv.InitInfos(BagMgr.GetInstance().items);

@@ -78,5 +78,4 @@ public class PoolMgr : BaseManager<PoolMgr>
         poolObj = null;
     }
     
-   
 }
