@@ -1,10 +1,12 @@
+// Author: 文若
+// CreateDate: 2022/10/14
+
 using UnityEngine;
 using System.Collections.Generic;
 
 /// <summary>
 /// item对象必须继承，用于实现初始化item方法
 /// </summary>
-/// <typeparam name="T"></typeparam>
 public interface IItemBase<T>
 {
     void InitItemInfo(T data);
@@ -68,6 +70,26 @@ public class CustomSV<T, K> where K : IItemBase<T>
     {
         this.itemW = w;
         this.itemH = h;
+        this.col = col;
+    }
+
+    /// <summary>
+    /// 初始化布局
+    /// </summary>
+    /// <param name="item">Vector 格子长宽</param>
+    /// <param name="interSpaceX">横行间隔</param>
+    /// <param name="interSpaceY">纵向间隔</param>
+    public void InitItemSizeAndCol(Vector2 item, int interSpaceX, int interSpaceY, int col)
+    {
+        this.itemW = (int) item.x + interSpaceX;
+        this.itemH = (int) item.y + interSpaceY;
+        this.col = col;
+    }
+
+    public void InitItemSizeAndCol(Vector2 item, Vector2 interSpace, int col)
+    {
+        this.itemW = (int) (item.x + interSpace.x);
+        this.itemH = (int) (item.y + interSpace.y);
         this.col = col;
     }
 

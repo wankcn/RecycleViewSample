@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cce4a780-ff5b-4df8-aacb-976c1f35af86" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Bag/BagMgr.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Bag/BagMgr.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Unlimited_Sliding_List/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unlimited_Sliding_List/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/UI/BagPanel.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/UI/BagPanel.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Bag/BagPanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Bag/BagPanel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Bag/CustomSV.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Bag/CustomSV.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ProjectBase/Pool/PoolMgr.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ProjectBase/Pool/PoolMgr.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,14 +25,17 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8D128CA9-5A9C-449C-A28B-CAF1A37A4019/4f/75e37a75/RectTransform.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
       <option value="$PROJECT_DIR$/Assets/Scripts/Main.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Bag/BagItem.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Bag/CustomSV.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/ProjectBase/Pool/PoolMgr.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Bag/BagPanel.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Bag/BagMgr.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/ProjectBase/Pool/PoolMgr.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Bag/CustomSV.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Bag/BagPanel.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="2F2caKOv19R9FXIDBKFBtWqM1tT" />
@@ -78,7 +86,8 @@
       <updated>1663693685875</updated>
       <workItem from="1663693714432" duration="86000" />
       <workItem from="1663696832902" duration="5901000" />
-      <workItem from="1665685894559" duration="7430000" />
+      <workItem from="1665685894559" duration="7784000" />
+      <workItem from="1665702796701" duration="3344000" />
     </task>
     <servers />
   </component>
