@@ -5,9 +5,8 @@ using UnityEngine;
 
 public class Main : MonoBehaviour
 {
-    private void Start()
+    private void Awake()
     {
         BagMgr.GetInstance().InitData();
-        UIManager.GetInstance().ShowPanel<BasePanel>("BagPanel");
     }
 }

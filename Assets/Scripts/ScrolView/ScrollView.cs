@@ -1,6 +1,5 @@
 using UnityEngine;
-
-public class BagPanel : BasePanel
+public class ScrollView : MonoBehaviour
 {
     public RectTransform content;
     public Vector2 itemSize;
@@ -10,7 +9,7 @@ public class BagPanel : BasePanel
     public int showViewH;
     private CustomSV<Item, BagItem> sv;
     public string boxResPath;
-
+    public GameObject sample;
     private void Start()
     {
         if (content == null) return;
