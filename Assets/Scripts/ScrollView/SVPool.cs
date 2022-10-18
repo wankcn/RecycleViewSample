@@ -39,13 +39,13 @@ public class PoolData
 }
 
 
-public class SVPoolMgr
+public class SVPool
 {
     private Dictionary<string, PoolData> poolDic = new Dictionary<string, PoolData>();
     private GameObject poolObj;
     private GameObject prefab;
 
-    public SVPoolMgr(GameObject sample)
+    public SVPool(GameObject sample)
     {
         prefab = sample;
     }

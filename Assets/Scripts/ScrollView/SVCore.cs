@@ -29,11 +29,11 @@ public class SVCore<T, K> where K : IItemBase<T>
     private int itemH; // 间隔高
     private int col; // 列数
     private string itemResName; // item预设路径
-    private SVPoolMgr svPool; // item预设路径
+    private SVPool svPool; 
 
     public SVCore(GameObject obj)
     {
-        svPool = new SVPoolMgr(obj);
+        svPool = new SVPool(obj);
     }
 
     /// <summary>

@@ -3,7 +3,7 @@
 
 using System;
 using UnityEngine;
-public class ScrollView : MonoBehaviour
+public class RecycleView : MonoBehaviour
 {
     public RectTransform content;
     public Vector2 itemSize;
