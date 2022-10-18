@@ -29,6 +29,12 @@ public class CustomSV<T, K> where K : IItemBase<T>
     private int itemH; // 间隔高
     private int col; // 列数
     private string itemResName; // item预设路径
+    private PoolMgr svPool; // item预设路径
+
+    public CustomSV()
+    {
+        svPool = new PoolMgr();
+    }
 
     /// <summary>
     /// 初始化预制件资源路径
@@ -118,7 +124,7 @@ public class CustomSV<T, K> where K : IItemBase<T>
                     // 需要判空，可能还没加载出来
                     if (nowShowItems[i] != null)
                     {
-                        PoolMgr.GetInstance().PushObj(itemResName, nowShowItems[i]);
+                        svPool.PushObj(itemResName, nowShowItems[i]);
                     }
 
                     nowShowItems.Remove(i);
@@ -133,7 +139,7 @@ public class CustomSV<T, K> where K : IItemBase<T>
                     // 需要判空，可能还没加载出来
                     if (nowShowItems[i] != null)
                     {
-                        PoolMgr.GetInstance().PushObj(itemResName, nowShowItems[i]);
+                        svPool.PushObj(itemResName, nowShowItems[i]);
                     }
 
                     nowShowItems.Remove(i);
@@ -156,7 +162,7 @@ public class CustomSV<T, K> where K : IItemBase<T>
                 int index = i;
                 // 异步加载，当前帧可能创建不出来，现在外面站坑
                 nowShowItems.Add(index, null);
-                PoolMgr.GetInstance().GetObj(itemResName, (obj) =>
+                svPool.GetObj(itemResName, (obj) =>
                 {
                     // 设置父对象
                     obj.transform.SetParent(content.transform, false);
@@ -175,7 +181,7 @@ public class CustomSV<T, K> where K : IItemBase<T>
                     else
                     {
                         // 如果操作太快，这个obj就不要了
-                        PoolMgr.GetInstance().PushObj(itemResName, obj);
+                        svPool.PushObj(itemResName, obj);
                     }
                 });
             }

@@ -14,14 +14,19 @@ public class Item
     }
 }
 
-public class BagMgr : BaseManager<BagMgr>
+public class BagData
 {
     public List<Item> items;
 
-    public void InitData()
+    public BagData()
     {
         items = new List<Item>();
         for (int i = 0; i < 10000; i++)
             items.Add(new Item(i, i));
+    }
+
+    public List<Item> GetData()
+    {
+        return items;
     }
 }

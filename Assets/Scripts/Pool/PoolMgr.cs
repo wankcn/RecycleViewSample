@@ -39,7 +39,7 @@ public class PoolData
 }
 
 
-public class PoolMgr : BaseManager<PoolMgr>
+public class PoolMgr 
 {
     private Dictionary<string, PoolData> poolDic = new Dictionary<string, PoolData>();
     private GameObject poolObj;
