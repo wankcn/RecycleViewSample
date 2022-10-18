@@ -29,11 +29,11 @@ public class CustomSV<T, K> where K : IItemBase<T>
     private int itemH; // 间隔高
     private int col; // 列数
     private string itemResName; // item预设路径
-    private PoolMgr svPool; // item预设路径
+    private SVPoolMgr svPool; // item预设路径
 
-    public CustomSV()
+    public CustomSV(GameObject obj)
     {
-        svPool = new PoolMgr();
+        svPool = new SVPoolMgr(obj);
     }
 
     /// <summary>
@@ -187,4 +187,9 @@ public class CustomSV<T, K> where K : IItemBase<T>
             }
         }
     }
+    
+    public void ClearData(){
+        svPool.Clear();
+    }
+
 }

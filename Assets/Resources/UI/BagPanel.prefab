@@ -501,7 +501,7 @@ MonoBehaviour:
   content: {fileID: 5033144021425605659}
   itemSize: {x: 180, y: 180}
   interSpace: {x: 10, y: 20}
-  showLine: 4
+  showLine: 5
   showViewH: 925
   boxResPath: UI/BagItem
   sample: {fileID: 5010716421563344664, guid: 32fc88fd2d8cb441cb8ee92aa27d4bb5, type: 3}

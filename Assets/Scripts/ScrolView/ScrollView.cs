@@ -1,3 +1,7 @@
+// Author: 文若
+// CreateDate: 2022/10/14
+
+using System;
 using UnityEngine;
 public class ScrollView : MonoBehaviour
 {
@@ -14,7 +18,7 @@ public class ScrollView : MonoBehaviour
     {
         var data = new BagData();
         if (content == null) return;
-        sv = new CustomSV<Item, BagItem>();
+        sv = new CustomSV<Item, BagItem>(sample);
         sv.InitItemResName(boxResPath);
         sv.InitItemSizeAndCol(itemSize, interSpace, showLine);
         sv.InitContentSVH(content, showViewH);
@@ -25,6 +29,10 @@ public class ScrollView : MonoBehaviour
     {
         if (content)
             sv.CheckShowOrHide();
+    }
 
+    private void OnDestroy()
+    {
+        sv.ClearData();
     }
 }

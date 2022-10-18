@@ -39,10 +39,16 @@ public class PoolData
 }
 
 
-public class PoolMgr 
+public class SVPoolMgr
 {
     private Dictionary<string, PoolData> poolDic = new Dictionary<string, PoolData>();
     private GameObject poolObj;
+    private GameObject prefab;
+
+    public SVPoolMgr(GameObject sample)
+    {
+        prefab = sample;
+    }
 
     public void GetObj(string name, UnityAction<GameObject> callBack)
     {
@@ -53,11 +59,14 @@ public class PoolMgr
         }
         else
         {
-            ResMgr.GetInstance().LoadAsync<GameObject>(name, (o) =>
-            {
-                o.name = name;
-                callBack(o);
-            });
+            var o = GameObject.Instantiate(prefab);
+            o.name = name;
+            callBack(o);
+            // ResMgr.GetInstance().LoadAsync<GameObject>(name, (o) =>
+            // {
+            //     o.name = name;
+            //     callBack(o);
+            // });
         }
     }
 
@@ -77,5 +86,4 @@ public class PoolMgr
         poolDic.Clear();
         poolObj = null;
     }
-    
 }
