@@ -17,7 +17,7 @@ public interface IItemBase<T>
 /// </summary>
 /// <typeparam name="T">数据来源</typeparam>
 /// <typeparam name="K">Item类,需要继承IItemBase</typeparam>
-public class CustomSV<T, K> where K : IItemBase<T>
+public class SVCore<T, K> where K : IItemBase<T>
 {
     private RectTransform content;
     private int viewRangeH; // 可视化范围的高
@@ -31,7 +31,7 @@ public class CustomSV<T, K> where K : IItemBase<T>
     private string itemResName; // item预设路径
     private SVPoolMgr svPool; // item预设路径
 
-    public CustomSV(GameObject obj)
+    public SVCore(GameObject obj)
     {
         svPool = new SVPoolMgr(obj);
     }

@@ -11,14 +11,14 @@ public class ScrollView : MonoBehaviour
     [Range(1,20)]
     public int showLine;
     public int showViewH;
-    private CustomSV<Item, BagItem> sv;
+    private SVCore<Item, BagItem> sv;
     public string boxResPath;
     public GameObject sample;
     private void Start()
     {
         var data = new BagData();
         if (content == null) return;
-        sv = new CustomSV<Item, BagItem>(sample);
+        sv = new SVCore<Item, BagItem>(sample);
         sv.InitItemResName(boxResPath);
         sv.InitItemSizeAndCol(itemSize, interSpace, showLine);
         sv.InitContentSVH(content, showViewH);
