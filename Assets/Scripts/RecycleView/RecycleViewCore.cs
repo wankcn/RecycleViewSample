@@ -17,7 +17,7 @@ public interface IItemBase<T>
 /// </summary>
 /// <typeparam name="T">数据来源</typeparam>
 /// <typeparam name="K">Item类,需要继承IItemBase</typeparam>
-public class SVCore<T, K> where K : IItemBase<T>
+public class RecycleViewCore<T, K> where K : IItemBase<T>
 {
     private RectTransform content;
     private int viewRangeH; // 可视化范围的高
@@ -29,11 +29,11 @@ public class SVCore<T, K> where K : IItemBase<T>
     private int itemH; // 间隔高
     private int col; // 列数
     private string itemResName; // item预设路径
-    private SVPool svPool; 
+    private RecycleViewPool svPool; 
 
-    public SVCore(GameObject obj)
+    public RecycleViewCore(GameObject obj)
     {
-        svPool = new SVPool(obj);
+        svPool = new RecycleViewPool(obj);
     }
 
     /// <summary>

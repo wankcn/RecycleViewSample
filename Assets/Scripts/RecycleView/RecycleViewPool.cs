@@ -39,13 +39,13 @@ public class PoolData
 }
 
 
-public class SVPool
+public class RecycleViewPool
 {
     private Dictionary<string, PoolData> poolDic = new Dictionary<string, PoolData>();
     private GameObject poolObj;
     private GameObject prefab;
 
-    public SVPool(GameObject sample)
+    public RecycleViewPool(GameObject sample)
     {
         prefab = sample;
     }
