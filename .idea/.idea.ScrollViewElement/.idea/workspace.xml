@@ -6,16 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="d99778da-bce1-491f-a246-efe34c215694" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ScrollViewElement/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ScrollViewElement/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Test.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Test.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ScrollView.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ScrollView/RecycleView.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ScrollView/RecycleView.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ScrollView/SVCore.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ScrollView/SVCore.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ScrollView/SVPool.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ScrollView/SVPool.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TestSV/BagData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TestSV/BagData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/RecycleView/RecycleViewCore.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RecycleView/RecycleViewCore.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +16,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/RecycleView/Controller.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/UGUICircularScrollView/Scripts/UICircularScrollView.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -33,19 +26,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Discover.Launch.Via.Unity": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Discover.Launch.Via.Unity&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="UnitTests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2021.3.9f1c1\Editor\Unity.exe" />
@@ -85,6 +78,7 @@
       <option name="presentableId" value="Default" />
       <updated>1666771791405</updated>
       <workItem from="1666771805633" duration="4974000" />
+      <workItem from="1666839484947" duration="4000" />
     </task>
     <servers />
   </component>
@@ -107,5 +101,24 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/RecycleView/RecycleView.cs</url>
+          <line>39</line>
+          <properties documentPath="C:\Users\Admin\Desktop\ScrollViewElement\Assets\Scripts\RecycleView\RecycleView.cs" initialLine="42" containingFunctionPresentation="method 'OnDestroy'">
+            <startOffsets>
+              <option value="1038" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1039" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

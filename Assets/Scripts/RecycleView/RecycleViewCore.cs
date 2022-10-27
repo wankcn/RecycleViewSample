@@ -65,38 +65,13 @@ public class RecycleViewCore<T, K> where K : IItemBase<T>
         this.content = transform;
         this.viewRangeH = h;
     }
-
-    /// <summary>
-    /// 初始化格子布局
-    /// </summary>
-    /// <param name="w">间隔宽度</param>
-    /// <param name="h">间隔高度</param>
-    /// <param name="col">显示列数</param>
-    public void InitItemSizeAndCol(int w, int h, int col)
-    {
-        this.itemW = w;
-        this.itemH = h;
-        this.col = col;
-    }
-
-    /// <summary>
-    /// 初始化布局
-    /// </summary>
-    /// <param name="item">Vector 格子长宽</param>
-    /// <param name="interSpaceX">横行间隔</param>
-    /// <param name="interSpaceY">纵向间隔</param>
-    public void InitItemSizeAndCol(Vector2 item, int interSpaceX, int interSpaceY, int col)
-    {
-        this.itemW = (int) item.x + interSpaceX;
-        this.itemH = (int) item.y + interSpaceY;
-        this.col = col;
-    }
-
+    
     public void InitItemSizeAndCol(Vector2 item, Vector2 interSpace, int col)
     {
         this.itemW = (int) (item.x + interSpace.x);
         this.itemH = (int) (item.y + interSpace.y);
         this.col = col;
+        content.sizeDelta = new Vector2(0, Mathf.CeilToInt(items.Count / col) * itemH);
     }
 
     /// <summary>
