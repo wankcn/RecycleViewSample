@@ -6,11 +6,10 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using System;
-using UnityEngine.Serialization;
 
-namespace GameNeon.Modules.UIModule
+namespace WenRuo
 {
-    public enum e_Direction
+    public enum E_Direction
     {
         Horizontal,
         Vertical
@@ -19,10 +18,10 @@ namespace GameNeon.Modules.UIModule
 
     public class RecycleView : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
-        public GameObject m_PointingFirstArrow;
-        public GameObject m_PointingEndArrow;
-        public e_Direction dir = e_Direction.Vertical;
-        public bool m_IsShowArrow = false;
+        public GameObject firstArrow;
+        public GameObject endArrow;
+        public E_Direction dir = E_Direction.Vertical;
+        public bool isShowArrow = false;
 
         public int lines = 1; // 默认显示1行
         public float squareSpacing = 5f; // 方阵间距
@@ -31,25 +30,27 @@ namespace GameNeon.Modules.UIModule
         public float row = 0f; // 行间距
         public float col = 0f; // 列间距
 
-        protected Action<GameObject, int> m_FuncCallBackFunc;
-        protected Action<GameObject, int> m_FuncOnClickCallBack;
-        protected Action<int, bool, GameObject> m_FuncOnButtonClickCallBack;
 
-        protected RectTransform rectTrans;
+        protected Action<GameObject, int> FuncCallBackFunc;
+        protected Action<GameObject, int> FuncOnClickCallBack;
+        protected Action<int, bool, GameObject> FuncOnButtonClickCallBack;
 
         protected float planeW;
         protected float planeH;
-
         protected float contentW;
         protected float contentH;
-
         protected float cellW;
         protected float cellH;
 
+        private bool isInit = false;
         protected GameObject content;
+        protected ScrollRect scrollRect;
+        protected RectTransform rectTrans;
         protected RectTransform contentRectTrans;
 
-        private bool m_isInited = false;
+        protected int maxCount = -1; //列表数量
+        protected int minIndex = -1;
+        protected int maxIndex = -1;
 
         //记录 物体的坐标 和 物体 
         protected struct CellInfo
@@ -59,17 +60,12 @@ namespace GameNeon.Modules.UIModule
         };
 
         protected CellInfo[] cellInfos;
+        protected bool isClearList = false; //是否清空列表
 
+        // 对象池
+        protected Stack<GameObject> Pool = new Stack<GameObject>();
         protected bool isInited = false;
 
-        protected ScrollRect scrollRect;
-
-        protected int maxCount = -1; //列表数量
-
-        protected int minIndex = -1;
-        protected int maxIndex = -1;
-
-        protected bool isClearList = false; //是否清空列表
 
         public virtual void Init(Action<GameObject, int> callBack)
         {
@@ -81,7 +77,7 @@ namespace GameNeon.Modules.UIModule
         {
             if (onButtonClickCallBack != null)
             {
-                m_FuncOnButtonClickCallBack = onButtonClickCallBack;
+                FuncOnButtonClickCallBack = onButtonClickCallBack;
             }
 
             Init(callBack, onClickCallBack);
@@ -91,26 +87,23 @@ namespace GameNeon.Modules.UIModule
         {
             DisposeAll();
 
-            m_FuncCallBackFunc = callBack;
+            FuncCallBackFunc = callBack;
 
             if (onClickCallBack != null)
             {
-                m_FuncOnClickCallBack = onClickCallBack;
+                FuncOnClickCallBack = onClickCallBack;
             }
 
-            if (m_isInited)
-                return;
-
+            if (isInit) return;
 
             content = this.GetComponent<ScrollRect>().content.gameObject;
-
             if (cell == null)
             {
                 cell = content.transform.GetChild(0).gameObject;
             }
 
-            /* Cell 处理 */
-            //m_CellGameObject.transform.SetParent(m_Content.transform.parent, false);
+            // ////////////////////** Cell 处理 **////////////////////
+            // m_CellGameObject.transform.SetParent(m_Content.transform.parent, false);
             SetPoolsObj(cell);
 
             RectTransform cellRectTrans = cell.GetComponent<RectTransform>();
@@ -118,51 +111,52 @@ namespace GameNeon.Modules.UIModule
             CheckAnchor(cellRectTrans);
             cellRectTrans.anchoredPosition = Vector2.zero;
 
-            //记录 Cell 信息
+            // 记录 Cell 信息
             cellH = cellRectTrans.rect.height;
             cellW = cellRectTrans.rect.width;
 
-            //记录 Plane 信息
+            // 记录 Plane 信息
             rectTrans = GetComponent<RectTransform>();
             Rect planeRect = rectTrans.rect;
             planeH = planeRect.height;
             planeW = planeRect.width;
 
-            //记录 Content 信息
+            // 记录 Content 信息
             contentRectTrans = content.GetComponent<RectTransform>();
             Rect contentRect = contentRectTrans.rect;
             contentH = contentRect.height;
             contentW = contentRect.width;
 
-            // 记录间距信息
+            // 记录间距信息 如果存在行列设置就引用，没有使用方阵间距
             row = Spacing.x;
             col = Spacing.y;
+            if (row == 0 && col == 0) row = col = squareSpacing;
+            else squareSpacing = 0;
 
             contentRectTrans.pivot = new Vector2(0f, 1f);
             //m_ContentRectTrans.sizeDelta = new Vector2 (planeRect.width, planeRect.height);
             //m_ContentRectTrans.anchoredPosition = Vector2.zero;
-            
+
             CheckAnchor(contentRectTrans);
             scrollRect = this.GetComponent<ScrollRect>();
             scrollRect.onValueChanged.RemoveAllListeners();
-            
+
             //添加滑动事件
             scrollRect.onValueChanged.AddListener(delegate(Vector2 value) { ScrollRectListener(value); });
-            if (m_PointingFirstArrow != null || m_PointingEndArrow != null)
+            if (firstArrow != null || endArrow != null)
             {
                 scrollRect.onValueChanged.AddListener(delegate(Vector2 value) { OnDragListener(value); });
                 OnDragListener(Vector2.zero);
             }
 
             //InitScrollBarGameObject(); // 废弃
-
-            m_isInited = true;
+            isInit = true;
         }
 
-        //检查 Anchor 是否正确
+        // 检查 Anchor 是否正确
         private void CheckAnchor(RectTransform rectTrans)
         {
-            if (dir == e_Direction.Vertical)
+            if (dir == E_Direction.Vertical)
             {
                 if (!((rectTrans.anchorMin == new Vector2(0, 1) && rectTrans.anchorMax == new Vector2(0, 1)) ||
                       (rectTrans.anchorMin == new Vector2(0, 1) && rectTrans.anchorMax == new Vector2(1, 1))))
@@ -182,7 +176,7 @@ namespace GameNeon.Modules.UIModule
             }
         }
 
-        //实时刷新列表时用
+        // 实时刷新列表时用
         public virtual void UpdateList()
         {
             for (int i = 0, length = cellInfos.Length; i < length; i++)
@@ -190,25 +184,25 @@ namespace GameNeon.Modules.UIModule
                 CellInfo cellInfo = cellInfos[i];
                 if (cellInfo.obj != null)
                 {
-                    float rangePos = dir == e_Direction.Vertical ? cellInfo.pos.y : cellInfo.pos.x;
+                    float rangePos = dir == E_Direction.Vertical ? cellInfo.pos.y : cellInfo.pos.x;
                     if (!IsOutRange(rangePos))
                     {
-                        Func(m_FuncCallBackFunc, cellInfo.obj, true);
+                        Func(FuncCallBackFunc, cellInfo.obj, true);
                     }
                 }
             }
         }
 
-        //刷新某一项
+        // 刷新某一项
         public void UpdateCell(int index)
         {
             CellInfo cellInfo = cellInfos[index - 1];
             if (cellInfo.obj != null)
             {
-                float rangePos = dir == e_Direction.Vertical ? cellInfo.pos.y : cellInfo.pos.x;
+                float rangePos = dir == E_Direction.Vertical ? cellInfo.pos.y : cellInfo.pos.x;
                 if (!IsOutRange(rangePos))
                 {
-                    Func(m_FuncCallBackFunc, cellInfo.obj);
+                    Func(FuncCallBackFunc, cellInfo.obj);
                 }
             }
         }
@@ -223,9 +217,9 @@ namespace GameNeon.Modules.UIModule
             maxIndex = -1;
 
             //-> 计算 Content 尺寸
-            if (dir == e_Direction.Vertical)
+            if (dir == E_Direction.Vertical)
             {
-                float contentSize = (squareSpacing + cellH) * Mathf.CeilToInt((float)num / lines);
+                float contentSize = (col + cellH) * Mathf.CeilToInt((float)num / lines);
                 contentH = contentSize;
                 contentW = contentRectTrans.sizeDelta.x;
                 contentSize = contentSize < rectTrans.rect.height ? rectTrans.rect.height : contentSize;
@@ -237,7 +231,7 @@ namespace GameNeon.Modules.UIModule
             }
             else
             {
-                float contentSize = (squareSpacing + cellW) * Mathf.CeilToInt((float)num / lines);
+                float contentSize = (row + cellW) * Mathf.CeilToInt((float)num / lines);
                 contentW = contentSize;
                 contentH = contentRectTrans.sizeDelta.x;
                 contentSize = contentSize < rectTrans.rect.width ? rectTrans.rect.width : contentSize;
@@ -280,7 +274,7 @@ namespace GameNeon.Modules.UIModule
                 {
                     CellInfo tempCellInfo = tempCellInfos[i];
                     //-> 计算是否超出范围
-                    float rPos = dir == e_Direction.Vertical ? tempCellInfo.pos.y : tempCellInfo.pos.x;
+                    float rPos = dir == E_Direction.Vertical ? tempCellInfo.pos.y : tempCellInfo.pos.x;
                     if (!IsOutRange(rPos))
                     {
                         //-> 记录显示范围中的 首位index 和 末尾index
@@ -296,7 +290,7 @@ namespace GameNeon.Modules.UIModule
                         tempCellInfo.obj.name = i.ToString();
                         tempCellInfo.obj.SetActive(true);
 
-                        Func(m_FuncCallBackFunc, tempCellInfo.obj);
+                        Func(FuncCallBackFunc, tempCellInfo.obj);
                     }
                     else
                     {
@@ -314,22 +308,22 @@ namespace GameNeon.Modules.UIModule
                 float rowPos = 0; //计算每排里面的cell 坐标
 
                 // * -> 计算每个Cell坐标
-                if (dir == e_Direction.Vertical)
+                if (dir == E_Direction.Vertical)
                 {
                     pos = cellH * Mathf.FloorToInt(i / lines) +
-                          squareSpacing * Mathf.FloorToInt(i / lines);
-                    rowPos = cellW * (i % lines) + squareSpacing * (i % lines);
+                          col * Mathf.FloorToInt(i / lines);
+                    rowPos = cellW * (i % lines) + row * (i % lines);
                     cellInfo.pos = new Vector3(rowPos, -pos, 0);
                 }
                 else
                 {
-                    pos = cellW * Mathf.FloorToInt(i / lines) + squareSpacing * Mathf.FloorToInt(i / lines);
-                    rowPos = cellH * (i % lines) + squareSpacing * (i % lines);
+                    pos = cellW * Mathf.FloorToInt(i / lines) + row * Mathf.FloorToInt(i / lines);
+                    rowPos = cellH * (i % lines) + col * (i % lines);
                     cellInfo.pos = new Vector3(pos, -rowPos, 0);
                 }
 
                 //-> 计算是否超出范围
-                float cellPos = dir == e_Direction.Vertical ? cellInfo.pos.y : cellInfo.pos.x;
+                float cellPos = dir == E_Direction.Vertical ? cellInfo.pos.y : cellInfo.pos.x;
                 if (IsOutRange(cellPos))
                 {
                     cellInfo.obj = null;
@@ -351,7 +345,7 @@ namespace GameNeon.Modules.UIModule
                 cellInfos[i] = cellInfo;
 
                 //-> 回调  函数
-                Func(m_FuncCallBackFunc, cell);
+                Func(FuncCallBackFunc, cell);
             }
 
             maxCount = num;
@@ -359,6 +353,48 @@ namespace GameNeon.Modules.UIModule
 
             OnDragListener(Vector2.zero);
         }
+
+        /// <summary>
+        /// 通过index定位到GameObject
+        /// </summary>
+        /// <param name="index"></param>
+        public void GoToCellPos(int index)
+        {
+            // 当前索引所在行的第一个索引
+            int theFirstIndex = index - index % lines;
+            // 假设在第一行最大索引
+            var tmpIndex = theFirstIndex + maxIndex;
+
+            int theLastIndex = tmpIndex > maxCount - 1 ? maxCount - 1 : tmpIndex;
+
+            // 如果最大索引就是边界的话，边界的
+            if (theLastIndex == maxCount - 1)
+            {
+                // 余数不为0的情况下，第一个索引位置需要考虑最大数到最后显示位置的边距
+                var shortOfNum = maxCount % lines == 0 ? 0 : lines - maxCount % lines;
+                theFirstIndex = theLastIndex - maxIndex + shortOfNum;
+            }
+
+            Vector2 newPos = cellInfos[theFirstIndex].pos;
+            contentRectTrans.anchoredPosition = new Vector2(contentRectTrans.anchoredPosition.x, -newPos.y);
+
+            // print(string.Format("index: {0}, theFirstIndex: {1},maxIndex:{2} theLastIndex:{3}", index, theFirstIndex,
+            //     maxIndex, theLastIndex));
+        }
+
+
+#if UNITY_EDITOR
+        public void LogRecycleView()
+        {
+            // 拿到容器基础信息
+            print("----------------------------------------------------------------------------");
+            print("Direction: " + dir);
+            print("Lines: " + lines);
+            print(string.Format("minIndex: {0} , maxIndex: {1}", minIndex, maxIndex));
+            print("Capacity: " + (maxIndex - minIndex + 1));
+            print("----------------------------------------------------------------------------");
+        }
+#endif
 
         // 更新滚动区域的大小
         public void UpdateSize()
@@ -368,7 +404,7 @@ namespace GameNeon.Modules.UIModule
             planeW = rect.width;
         }
 
-        //滑动事件
+        // 滑动事件
         protected virtual void ScrollRectListener(Vector2 value)
         {
             UpdateCheck();
@@ -376,21 +412,20 @@ namespace GameNeon.Modules.UIModule
 
         private void UpdateCheck()
         {
-            if (cellInfos == null)
-                return;
+            if (cellInfos == null) return;
 
-            //检查超出范围
+            // 检查超出范围
             for (int i = 0, length = cellInfos.Length; i < length; i++)
             {
                 CellInfo cellInfo = cellInfos[i];
                 GameObject obj = cellInfo.obj;
                 Vector3 pos = cellInfo.pos;
 
-                float rangePos = dir == e_Direction.Vertical ? pos.y : pos.x;
-                //判断是否超出显示范围
+                float rangePos = dir == E_Direction.Vertical ? pos.y : pos.x;
+                // 判断是否超出显示范围
                 if (IsOutRange(rangePos))
                 {
-                    //把超出范围的cell 扔进 poolsObj里
+                    // 把超出范围的cell 扔进 poolsObj里
                     if (obj != null)
                     {
                         SetPoolsObj(obj);
@@ -401,23 +436,22 @@ namespace GameNeon.Modules.UIModule
                 {
                     if (obj == null)
                     {
-                        //优先从 poolsObj中 取出 （poolsObj为空则返回 实例化的cell）
+                        // 优先从 poolsObj中 取出 （poolsObj为空则返回 实例化的cell）
                         GameObject cell = GetPoolsObj();
                         cell.transform.localPosition = pos;
                         cell.gameObject.name = i.ToString();
                         cellInfos[i].obj = cell;
-
-                        Func(m_FuncCallBackFunc, cell);
+                        Func(FuncCallBackFunc, cell);
                     }
                 }
             }
         }
 
-        //判断是否超出显示范围
+        // 判断是否超出显示范围
         protected bool IsOutRange(float pos)
         {
             Vector3 listP = contentRectTrans.anchoredPosition;
-            if (dir == e_Direction.Vertical)
+            if (dir == E_Direction.Vertical)
             {
                 if (pos + listP.y > cellH || pos + listP.y < -rectTrans.rect.height)
                 {
@@ -435,22 +469,13 @@ namespace GameNeon.Modules.UIModule
             return false;
         }
 
-        //对象池 机制  (存入， 取出) cell
-        protected Stack<GameObject> poolsObj = new Stack<GameObject>();
 
         //取出 cell
         protected virtual GameObject GetPoolsObj()
         {
             GameObject cell = null;
-            if (poolsObj.Count > 0)
-            {
-                cell = poolsObj.Pop();
-            }
-
-            if (cell == null)
-            {
-                cell = Instantiate(this.cell) as GameObject;
-            }
+            if (Pool.Count > 0) cell = Pool.Pop();
+            if (cell == null) cell = Instantiate(this.cell) as GameObject;
 
             cell.transform.SetParent(content.transform);
             cell.transform.localScale = Vector3.one;
@@ -464,7 +489,7 @@ namespace GameNeon.Modules.UIModule
         {
             if (cell != null)
             {
-                poolsObj.Push(cell);
+                Pool.Push(cell);
                 SetActive(cell, false);
             }
         }
@@ -472,24 +497,18 @@ namespace GameNeon.Modules.UIModule
         //回调
         protected void Func(Action<GameObject, int> func, GameObject selectObject, bool isUpdate = false)
         {
-            int num = int.Parse(selectObject.name) + 1;
+            int index = int.Parse(selectObject.name);
             if (func != null)
             {
-                func(selectObject, num);
+                func(selectObject, index);
             }
         }
 
         public void DisposeAll()
         {
-            if (m_FuncCallBackFunc != null)
-            {
-                m_FuncCallBackFunc = null;
-            }
-
-            if (m_FuncOnClickCallBack != null)
-            {
-                m_FuncOnClickCallBack = null;
-            }
+            if (FuncCallBackFunc != null) FuncCallBackFunc = null;
+            if (FuncOnClickCallBack != null) FuncOnClickCallBack = null;
+            if (FuncOnButtonClickCallBack != null) FuncOnButtonClickCallBack = null;
         }
 
         protected void OnDestroy()
@@ -525,16 +544,16 @@ namespace GameNeon.Modules.UIModule
 
         protected void OnDragListener(Vector2 value)
         {
-            float normalizedPos = dir == e_Direction.Vertical
+            float normalizedPos = dir == E_Direction.Vertical
                 ? scrollRect.verticalNormalizedPosition
                 : scrollRect.horizontalNormalizedPosition;
 
-            if (dir == e_Direction.Vertical)
+            if (dir == E_Direction.Vertical)
             {
                 if (contentH - rectTrans.rect.height < 10)
                 {
-                    SetActive(m_PointingFirstArrow, false);
-                    SetActive(m_PointingEndArrow, false);
+                    SetActive(firstArrow, false);
+                    SetActive(endArrow, false);
                     return;
                 }
             }
@@ -542,28 +561,42 @@ namespace GameNeon.Modules.UIModule
             {
                 if (contentW - rectTrans.rect.width < 10)
                 {
-                    SetActive(m_PointingFirstArrow, false);
-                    SetActive(m_PointingEndArrow, false);
+                    SetActive(firstArrow, false);
+                    SetActive(endArrow, false);
                     return;
                 }
             }
 
             if (normalizedPos >= 0.9)
             {
-                SetActive(m_PointingFirstArrow, false);
-                SetActive(m_PointingEndArrow, true);
+                SetActive(firstArrow, false);
+                SetActive(endArrow, true);
             }
             else if (normalizedPos <= 0.1)
             {
-                SetActive(m_PointingFirstArrow, true);
-                SetActive(m_PointingEndArrow, false);
+                SetActive(firstArrow, true);
+                SetActive(endArrow, false);
             }
             else
             {
-                SetActive(m_PointingFirstArrow, true);
-                SetActive(m_PointingEndArrow, true);
+                SetActive(firstArrow, true);
+                SetActive(endArrow, true);
             }
         }
+
+
+        public GameObject GetCellGameObject(int index)
+        {
+            // 为了保证拿到正确数据，根据index应该-1拿到正确数据
+            return cellInfos[--index].obj;
+        }
+
+        public int GetCellIndex(GameObject obj)
+        {
+            // 第0号是模板，所以列表中索引应该-1
+            return Convert.ToInt32(obj.name) - 1;
+        }
+
 
         private static void SetActive(GameObject obj, bool isActive)
         {

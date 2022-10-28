@@ -1,41 +1,51 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿// Author: 文若
+// CreateDate: 2022/10/26
+
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace GameNeon.Modules.UIModule
+namespace WenRuo
 {
     public class RecycleViewTest : MonoBehaviour
     {
+        public int ListCount = 1000;
+        public int gotoIndex = 0;
+
+
         public RecycleView VerticalScroll;
-        public RecycleView HorizontalScroll_1;
-        public RecycleView HorizontalScroll_2;
+        public RecycleView HorizontalScroll;
 
-        public Button btn;
-
+        public Button logBtn;
+        public Button goToIndexBtn;
 
         void Start()
         {
             StartScrollView();
+            logBtn.onClick.AddListener(ShowLog);
+            goToIndexBtn.onClick.AddListener(GotoIndex);
         }
 
         public void StartScrollView()
         {
             VerticalScroll.Init(NormalCallBack);
-            VerticalScroll.ShowList(1000);
-
-
-            HorizontalScroll_1.Init(NormalCallBack);
-            HorizontalScroll_1.ShowList(1000);
-
-            HorizontalScroll_2.Init(NormalCallBack);
-            HorizontalScroll_2.ShowList(1000);
+            VerticalScroll.ShowList(ListCount);
+            HorizontalScroll.Init(NormalCallBack);
+            HorizontalScroll.ShowList(ListCount);
         }
 
         private void NormalCallBack(GameObject cell, int index)
         {
             cell.transform.Find("Text1").GetComponent<Text>().text = index.ToString();
+        }
+
+        void ShowLog()
+        {
+            VerticalScroll.LogRecycleView();
+        }
+
+        void GotoIndex()
+        {
+            VerticalScroll.GoToCellPos(gotoIndex);
         }
     }
 }

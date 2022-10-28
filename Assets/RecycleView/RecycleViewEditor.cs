@@ -1,7 +1,10 @@
-﻿using UnityEngine;
+﻿// Author: 文若
+// CreateDate: 2022/10/26
+
+using UnityEngine;
 using UnityEditor;
 
-namespace GameNeon.Modules.UIModule
+namespace WenRuo
 {
     [CustomEditor(typeof(RecycleView))]
     public class UICircularScrollViewEditor : Editor
@@ -12,20 +15,20 @@ namespace GameNeon.Modules.UIModule
         {
             rv = (RecycleView)target;
 
-            rv.dir = (e_Direction)EditorGUILayout.EnumPopup("Direction", rv.dir);
-            rv.lines = EditorGUILayout.IntSlider("Row Or Column", rv.lines,1,10);
+            rv.dir = (E_Direction)EditorGUILayout.EnumPopup("Direction", rv.dir);
+            rv.lines = EditorGUILayout.IntSlider("Row Or Column", rv.lines, 1, 10);
             rv.squareSpacing = EditorGUILayout.FloatField("Square Spacing", rv.squareSpacing);
             rv.Spacing = EditorGUILayout.Vector2Field("Spacing", rv.Spacing);
-           
+
             rv.cell =
                 (GameObject)EditorGUILayout.ObjectField("Cell", rv.cell, typeof(GameObject), true);
-            rv.m_IsShowArrow = EditorGUILayout.ToggleLeft("IsShowArrow", rv.m_IsShowArrow);
-            if (rv.m_IsShowArrow)
+            rv.isShowArrow = EditorGUILayout.ToggleLeft("IsShowArrow", rv.isShowArrow);
+            if (rv.isShowArrow)
             {
-                rv.m_PointingFirstArrow = (GameObject)EditorGUILayout.ObjectField("Up or Left Arrow",
-                    rv.m_PointingFirstArrow, typeof(GameObject), true);
-                rv.m_PointingEndArrow = (GameObject)EditorGUILayout.ObjectField("Down or Right Arrow",
-                    rv.m_PointingEndArrow, typeof(GameObject), true);
+                rv.firstArrow = (GameObject)EditorGUILayout.ObjectField("Up or Left Arrow",
+                    rv.firstArrow, typeof(GameObject), true);
+                rv.endArrow = (GameObject)EditorGUILayout.ObjectField("Down or Right Arrow",
+                    rv.endArrow, typeof(GameObject), true);
             }
         }
     }
