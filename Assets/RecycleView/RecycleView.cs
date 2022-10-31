@@ -376,7 +376,15 @@ namespace WenRuo
             }
 
             Vector2 newPos = cellInfos[theFirstIndex].pos;
-            contentRectTrans.anchoredPosition = new Vector2(contentRectTrans.anchoredPosition.x, -newPos.y);
+            if (dir == E_Direction.Vertical)
+            {
+                contentRectTrans.anchoredPosition = new Vector2(contentRectTrans.anchoredPosition.x, -newPos.y);
+            }
+            else
+            {
+                contentRectTrans.anchoredPosition = new Vector2(-newPos.x, contentRectTrans.anchoredPosition.y);
+            }
+
 
             // print(string.Format("index: {0}, theFirstIndex: {1},maxIndex:{2} theLastIndex:{3}", index, theFirstIndex,
             //     maxIndex, theLastIndex));

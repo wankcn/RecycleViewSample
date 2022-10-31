@@ -46,6 +46,7 @@ namespace WenRuo
         void GotoIndex()
         {
             VerticalScroll.GoToCellPos(gotoIndex);
+            HorizontalScroll.GoToCellPos(gotoIndex);
         }
     }
 }
