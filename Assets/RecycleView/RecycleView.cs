@@ -1,6 +1,16 @@
 ﻿// Author: 文若
 // CreateDate: 2022/10/26
 
+// ## 生成滑动列表必须以下步骤：
+// 1. 持有RecycleView对象rv，rv.Init(callBackFunc)
+// 2. 刷新整个列表（首次调用和数量变化时调用）: ShowList(int count)
+// 3. 回调: Func(GameObject cell, int index) 
+// ----------
+// 功能接口看代码，案例详见RecycleViewTest.cs
+// 刷新单个项: UpdateCell(int index)
+// 刷新列表数据(无数量变化时调用): UpdateList()
+// 定位到索引所在当前列表的位置 GoToCellPos(int index)
+
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
