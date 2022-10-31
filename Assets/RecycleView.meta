@@ -1,8 +1,13 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/RecycleView.meta
 guid: 2373c1b0512abc046b96d86dc4aaa966
+========
+guid: 6832dd24b29947f4d85b451bd845a81a
+>>>>>>>> origin/master:Assets/UGUICircularScrollView.meta
 folderAsset: yes
+timeCreated: 1489559208
+licenseType: Pro
 DefaultImporter:
-  externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
