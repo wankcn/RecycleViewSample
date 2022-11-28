@@ -39,6 +39,8 @@ namespace WenRuo
         public Vector2 Spacing = Vector2.zero;
         public float row = 0f; // 行间距
         public float col = 0f; // 列间距
+        public float paddingTop = 0f; // 顶部空隙
+        public float paddingLeft = 0f; // 左侧空隙
 
 
         protected Action<GameObject, int> FuncCallBackFunc;
@@ -229,9 +231,9 @@ namespace WenRuo
             //-> 计算 Content 尺寸
             if (dir == E_Direction.Vertical)
             {
-                float contentSize = (col + cellH) * Mathf.CeilToInt((float)num / lines);
+                float contentSize = (col + cellH) * Mathf.CeilToInt((float)num / lines) + paddingTop;
                 contentH = contentSize;
-                contentW = contentRectTrans.sizeDelta.x;
+                contentW = contentRectTrans.sizeDelta.x + paddingLeft;
                 contentSize = contentSize < rectTrans.rect.height ? rectTrans.rect.height : contentSize;
                 contentRectTrans.sizeDelta = new Vector2(contentW, contentSize);
                 if (num != maxCount)
@@ -241,9 +243,9 @@ namespace WenRuo
             }
             else
             {
-                float contentSize = (row + cellW) * Mathf.CeilToInt((float)num / lines);
+                float contentSize = (row + cellW) * Mathf.CeilToInt((float)num / lines) + paddingTop;
                 contentW = contentSize;
-                contentH = contentRectTrans.sizeDelta.x;
+                contentH = contentRectTrans.sizeDelta.x + paddingLeft;
                 contentSize = contentSize < rectTrans.rect.width ? rectTrans.rect.width : contentSize;
                 contentRectTrans.sizeDelta = new Vector2(contentSize, contentH);
                 if (num != maxCount)
@@ -323,13 +325,14 @@ namespace WenRuo
                     pos = cellH * Mathf.FloorToInt(i / lines) +
                           col * Mathf.FloorToInt(i / lines);
                     rowPos = cellW * (i % lines) + row * (i % lines);
-                    cellInfo.pos = new Vector3(rowPos, -pos, 0);
+                    // 为每个cell假如留白边距
+                    cellInfo.pos = new Vector3(rowPos + paddingLeft, -pos - paddingTop, 0);
                 }
                 else
                 {
                     pos = cellW * Mathf.FloorToInt(i / lines) + row * Mathf.FloorToInt(i / lines);
                     rowPos = cellH * (i % lines) + col * (i % lines);
-                    cellInfo.pos = new Vector3(pos, -rowPos, 0);
+                    cellInfo.pos = new Vector3(pos + paddingLeft, -rowPos - paddingTop, 0);
                 }
 
                 //-> 计算是否超出范围
