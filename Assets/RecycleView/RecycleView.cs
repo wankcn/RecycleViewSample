@@ -298,7 +298,9 @@ namespace WenRuo
                             tempCellInfo.obj = GetPoolsObj();
                         }
 
-                        tempCellInfo.obj.transform.GetComponent<RectTransform>().anchoredPosition = tempCellInfo.pos;
+                        // 记录bug，这里应该使用localPosition，避免z轴丢失导致刷新列表的时候z轴异常 为什么z轴不为0 未知
+                        // tempCellInfo.obj.transform.GetComponent<RectTransform>().anchoredPosition = tempCellInfo.pos;
+                        tempCellInfo.obj.transform.GetComponent<RectTransform>().localPosition = tempCellInfo.pos;
                         tempCellInfo.obj.name = i.ToString();
                         tempCellInfo.obj.SetActive(true);
 
@@ -350,7 +352,9 @@ namespace WenRuo
 
                 //-> 取或创建 Cell
                 GameObject cell = GetPoolsObj();
-                cell.transform.GetComponent<RectTransform>().anchoredPosition = cellInfo.pos;
+                // 记录bug，这里应该使用localPosition，避免z轴丢失导致刷新列表的时候z轴异常 为什么z轴不为0 未知
+                // cell.transform.GetComponent<RectTransform>().anchoredPosition = cellInfo.pos;
+                cell.transform.GetComponent<RectTransform>().localPosition = cellInfo.pos;
                 cell.gameObject.name = i.ToString();
 
                 //-> 存数据
