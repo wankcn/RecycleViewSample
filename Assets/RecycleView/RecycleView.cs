@@ -371,10 +371,18 @@ namespace WenRuo
             OnDragListener(Vector2.zero);
         }
 
+        #region 扩展方法 到达指定位置
+        
+        /// 定位到第一行，也是还原到初始位置
+        public void GoToOneLine()
+        {
+            GoToCellPos(0);
+        }
+        
         /// <summary>
-        /// 通过index定位到GameObject
+        /// 通过index定位到某一单元格的坐标位置
         /// </summary>
-        /// <param name="index"></param>
+        /// <param name="index">索引ID</param>
         public void GoToCellPos(int index)
         {
             // 当前索引所在行的第一个索引
@@ -395,17 +403,24 @@ namespace WenRuo
             Vector2 newPos = cellInfos[theFirstIndex].pos;
             if (dir == E_Direction.Vertical)
             {
-                contentRectTrans.anchoredPosition = new Vector2(contentRectTrans.anchoredPosition.x, -newPos.y);
+                // 纵滑时定位到某一点，需要进行布局上的显示判断
+                // 如果index是第0行，即index<=lines, 回到的位置应该是第一行坐标y+顶部空隙 (x,y+top)
+                // index>lines,显示的index的布局应该 (x,y+col)
+                var posY = index <= lines ? -newPos.y - paddingTop : -newPos.y - col;
+                contentRectTrans.anchoredPosition = new Vector2(contentRectTrans.anchoredPosition.x, posY);
             }
             else
             {
-                contentRectTrans.anchoredPosition = new Vector2(-newPos.x, contentRectTrans.anchoredPosition.y);
+                // 横向滑动时
+                // 如果index是第0行，即index<=lines, 回到的位置 (x+left,y)
+                // index>lines,位置应该为 (x+row,y)
+                var posX = index <= lines ? -newPos.x + paddingLeft : -newPos.x + row;
+                contentRectTrans.anchoredPosition = new Vector2(posX, contentRectTrans.anchoredPosition.y);
             }
-
-
-            // print(string.Format("index: {0}, theFirstIndex: {1},maxIndex:{2} theLastIndex:{3}", index, theFirstIndex,
-            //     maxIndex, theLastIndex));
         }
+        
+
+        #endregion
 
 
 #if UNITY_EDITOR
