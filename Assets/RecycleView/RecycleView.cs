@@ -372,13 +372,13 @@ namespace WenRuo
         }
 
         #region 扩展方法 到达指定位置
-        
+
         /// 定位到第一行，也是还原到初始位置
         public void GoToOneLine()
         {
             GoToCellPos(0);
         }
-        
+
         /// <summary>
         /// 通过index定位到某一单元格的坐标位置
         /// </summary>
@@ -418,7 +418,6 @@ namespace WenRuo
                 contentRectTrans.anchoredPosition = new Vector2(posX, contentRectTrans.anchoredPosition.y);
             }
         }
-        
 
         #endregion
 
@@ -638,7 +637,7 @@ namespace WenRuo
         }
 
 
-        private static void SetActive(GameObject obj, bool isActive)
+        protected void SetActive(GameObject obj, bool isActive)
         {
             if (obj != null)
             {

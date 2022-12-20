@@ -14,7 +14,7 @@ namespace WenRuo
 
         public RecycleView VerticalScroll;
         public RecycleView HorizontalScroll;
-
+        public ExpandableView ExpandScroll;
         public Button logBtn;
         public Button goToIndexBtn;
 
@@ -31,12 +31,24 @@ namespace WenRuo
             VerticalScroll.ShowList(ListCount);
             HorizontalScroll.Init(NormalCallBack);
             HorizontalScroll.ShowList(ListCount);
+            ExpandScroll.Init(ExpandCallBack);
+            ExpandScroll.ShowList("3|2|5|8");
         }
 
         private void NormalCallBack(GameObject cell, int index)
         {
             cell.transform.Find("Text1").GetComponent<Text>().text = index.ToString();
         }
+
+        private void ExpandCallBack(GameObject cell, GameObject childCell, int index, int childIndex)
+        {
+            cell.transform.Find("Text1").GetComponent<Text>().text = "Btn : " + index.ToString();
+            if (childCell != null)
+            {
+                childCell.transform.Find("Text1").GetComponent<Text>().text = childIndex.ToString();
+            }
+        }
+
 
         void ShowLog()
         {
