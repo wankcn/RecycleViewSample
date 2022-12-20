@@ -1,12 +1,19 @@
 # RecycleViewSample
 
-**11月20日新增**
+### 11月20日新增
 
-增加了一个可扩展收缩列表，适用于游戏中的任务展开收起，成就展开收起等功能
+增加了一个可扩展收缩列表，适用于游戏中的任务展开收起，成就展开收起等功能，如下图
 
 ![demo1](Document/img/demo1.gif)
 
-**11月28日新增**
+**使用说明**
+创建时需要两个模板slot，一个是button，另一个则是btn下显示的cell
+<img  width="400" src="Document/img/rv06.png">
+
+配置如下图添加`ExpandableView`脚本，新增的IsDefaultExpand用来控制是否展开
+<img  width="400" src="Document/img/rv05.png">
+
+### 11月28日新增
 
 增加可调节滑动列表的左侧间隙和顶部间隙
 
