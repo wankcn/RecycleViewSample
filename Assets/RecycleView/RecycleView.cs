@@ -385,6 +385,9 @@ namespace WenRuo
         /// <param name="index">索引ID</param>
         public void GoToCellPos(int index)
         {
+            // 如果cellInfo不存在坐标，说明没有被初始化过，当前没有数据，直接return
+            if (cellInfos.Length == 0) return;
+            
             // 当前索引所在行的第一个索引
             int theFirstIndex = index - index % lines;
             // 假设在第一行最大索引
