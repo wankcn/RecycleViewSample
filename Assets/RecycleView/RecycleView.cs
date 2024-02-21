@@ -243,7 +243,7 @@ namespace WenRuo
             }
             else
             {
-                float contentSize = (row + cellW) * Mathf.CeilToInt((float)num / lines) + paddingTop;
+                float contentSize = (row + cellW) * Mathf.CeilToInt((float)num / lines) + paddingLeft;
                 contentW = contentSize;
                 contentH = contentRectTrans.sizeDelta.x + paddingLeft;
                 contentSize = contentSize < rectTrans.rect.width ? rectTrans.rect.width : contentSize;
